@@ -1,0 +1,425 @@
+\documentclass[11pt,a4paper]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%% Credit %%%%%%%%%%%%%%%%%%%%%%%%
+
+% template ini dibuat oleh martin.manullang@if.itera.ac.id untuk dipergunakan oleh seluruh sivitas akademik itera.
+
+%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGE starts HERE %%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{microtype}
+\captionsetup[table]{name=Tabel}
+\captionsetup[figure]{name=Gambar}
+\usepackage{tabulary}
+\usepackage{minted}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{placeins}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage[all]{xy}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage[left=2cm,right=2cm,top=3cm,bottom=2.5cm]{geometry}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{psfrag}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{beramono}
+% Enable inserting code into the document
+\usepackage{listings}
+\usepackage{xcolor} 
+% custom color & style for listing
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{LightGray}{gray}{0.9}
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{green},
+	keywordstyle=\color{codegreen},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
+\renewcommand{\lstlistingname}{Kode}
+%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGE ends HERE %%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Data Diri %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\student}{\textbf{Isi Nama Di Sini (Dan NIM Di Sini)}}
+\newcommand{\course}{\textbf{Sistem Teknologi Multimedia (IF25-40305)}}
+\newcommand{\assignment}{\textbf{Worksheet 1: Setup Python Environment untuk Multimedia}}
+
+%%%%%%%%%%%%%%%%%%% using theorem style %%%%%%%%%%%%%%%%%%%%
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{exa}[thm]{Example}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{quest}{Question}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{lipsum}%% a garbage package you don't need except to create examples.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Nama Mahasiswa di Header (NIM Mahasiswa di Header)}
+\rhead{ \thepage}
+\cfoot{\textbf{Worksheet 1: Setup Python Environment untuk Multimedia}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%%%%%%%%%%%%%%  Shortcut for usual set of numbers  %%%%%%%%%%%
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\setlength\headheight{14pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%555
+\begin{document}
+\thispagestyle{empty}
+\begin{center}
+	\includegraphics[scale = 0.15]{Figure/ifitera-header.png}
+	\vspace{0.1cm}
+\end{center}
+\noindent
+\rule{17cm}{0.2cm}\\[0.3cm]
+Nama: \student \hfill Tugas Ke: \assignment\\[0.1cm]
+Mata Kuliah: \course \hfill Tanggal: \today\\
+\rule{17cm}{0.05cm}
+\vspace{0.1cm}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BODY DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tujuan Pembelajaran}
+Setelah menyelesaikan worksheet ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+    \item Memahami pentingnya manajemen environment Python untuk pengembangan multimedia
+    \item Menginstall dan mengkonfigurasi Python environment menggunakan conda, venv, atau uv
+    \item Menginstall library-library Python yang diperlukan untuk multimedia processing
+    \item Memverifikasi instalasi dengan mengimpor dan menguji library multimedia
+    \item Mendokumentasikan proses konfigurasi dan hasil pengujian dalam format \LaTeX
+\end{itemize}
+
+\section{Latar Belakang}
+Python telah menjadi bahasa pemrograman yang sangat populer untuk multimedia processing karena memiliki ekosistem library yang sangat kaya. Namun, untuk dapat bekerja dengan multimedia secara efektif, kita perlu mengatur environment Python dengan benar dan menginstall library-library yang tepat.
+
+Manajemen environment Python sangat penting untuk:
+\begin{itemize}
+    \item Menghindari konflik antar library (dependency conflict)
+    \item Memastikan reproducibility dari project
+    \item Memudahkan kolaborasi antar developer
+    \item Memisahkan project yang berbeda dengan requirement yang berbeda
+\end{itemize}
+
+\section{Instruksi Tugas}
+
+\subsection{Persiapan}
+\textbf{Sebelum memulai, pastikan Anda telah:}
+\begin{itemize}
+    \item Menginstall Python 3.8 atau lebih baru di sistem Anda
+    \item Memilih salah satu tool manajemen environment: \textbf{conda}, \textbf{venv}, atau \textbf{uv}
+    \item Membuka terminal/command prompt
+    \item Menyiapkan dokumen \LaTeX\ ini untuk dokumentasi
+\end{itemize}
+
+\subsection{Bagian 1: Membuat Environment Python}
+Pilih \textbf{SALAH SATU} dari tiga opsi berikut dan ikuti langkah-langkahnya:
+
+\subsubsection{Opsi 1: Menggunakan Conda (Direkomendasikan untuk pemula)}
+Jalankan perintah berikut di terminal:
+
+\begin{lstlisting}[language=bash, caption=Membuat environment dengan Conda]
+# Membuat environment baru dengan nama 'multimedia'
+conda create -n multimedia python=3.11
+
+# Mengaktifkan environment
+conda activate multimedia
+
+# Verifikasi environment aktif
+conda info --envs
+\end{lstlisting}
+
+\subsubsection{Opsi 2: Menggunakan venv (Built-in Python)}
+\begin{lstlisting}[language=bash, caption=Membuat environment dengan venv]
+# Membuat environment baru
+python3 -m venv multimedia-env
+
+# Mengaktifkan environment (Linux/Mac)
+source multimedia-env/bin/activate
+
+# Mengaktifkan environment (Windows)
+# multimedia-env\Scripts\activate
+
+# Verifikasi environment aktif
+which python
+\end{lstlisting}
+
+\subsubsection{Opsi 3: Menggunakan uv (Modern dan cepat)}
+\begin{lstlisting}[language=bash, caption=Membuat environment dengan uv]
+# Install uv terlebih dahulu jika belum ada
+# pip install uv
+
+# Membuat environment baru
+uv venv multimedia-uv
+
+# Mengaktifkan environment (Linux/Mac)
+source multimedia-uv/bin/activate
+
+# Mengaktifkan environment (Windows)
+# multimedia-uv\Scripts\activate
+
+# Verifikasi environment aktif
+which python
+\end{lstlisting}
+
+\textbf{Dokumentasikan di sini:}
+\begin{itemize}
+    \item Tool manajemen environment yang Anda pilih: \textbf{[ISI DI SINI]}
+    \item Screenshot atau copy-paste output dari perintah verifikasi environment
+\end{itemize}
+
+\subsection{Bagian 2: Instalasi Library Multimedia}
+Setelah environment aktif, install library-library berikut:
+
+\subsubsection{Library Audio Processing}
+\begin{lstlisting}[language=bash, caption=Instalasi library audio]
+# Untuk conda:
+conda install -c conda-forge librosa soundfile scipy
+
+# Untuk pip (venv/uv):
+pip install librosa soundfile scipy
+\end{lstlisting}
+
+\subsubsection{Library Image Processing}
+\begin{lstlisting}[language=bash, caption=Instalasi library image]
+# Untuk conda:
+conda install -c conda-forge opencv pillow scikit-image matplotlib
+
+# Untuk pip (venv/uv):
+pip install opencv-python pillow scikit-image matplotlib
+\end{lstlisting}
+
+\subsubsection{Library Video Processing}
+\begin{lstlisting}[language=bash, caption=Instalasi library video]
+# Untuk conda:
+conda install -c conda-forge ffmpeg
+pip install moviepy
+
+# Untuk pip (venv/uv):
+pip install moviepy
+\end{lstlisting}
+
+\subsubsection{Library General Purpose}
+\begin{lstlisting}[language=bash, caption=Instalasi library umum]
+# Untuk conda:
+conda install numpy pandas jupyter
+
+# Untuk pip (venv/uv):
+pip install numpy pandas jupyter
+\end{lstlisting}
+
+\textbf{Dokumentasikan di sini:}
+\begin{itemize}
+    \item Perintah instalasi yang Anda gunakan
+    \item Screenshot proses instalasi atau output sukses
+    \item Daftar library yang berhasil diinstall dengan versinya
+\end{itemize}
+
+\subsection{Bagian 3: Verifikasi Instalasi}
+Buat file Python sederhana untuk menguji semua library yang telah diinstall:
+
+
+\textbf{Jalankan script dan dokumentasikan hasilnya:}
+
+\subsection{Bagian 4: Simple Test dengan Sample Code}
+Buat dan jalankan contoh sederhana untuk setiap kategori multimedia:
+
+\subsubsection{Test Audio Processing}
+\begin{lstlisting}[language=Python, caption=Test audio processing sederhana]
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate simple sine wave
+duration = 2  # seconds
+sample_rate = 44100
+frequency = 440  # A4 note
+
+t = np.linspace(0, duration, int(sample_rate * duration))
+audio_signal = np.sin(2 * np.pi * frequency * t)
+
+# Plot waveform
+plt.figure(figsize=(10, 4))
+plt.plot(t[:1000], audio_signal[:1000])  # Plot first 1000 samples
+plt.title('Sine Wave (440 Hz)')
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude')
+plt.grid(True)
+plt.savefig('sine_wave_test.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+print(f"Generated {duration}s sine wave at {frequency}Hz")
+print(f"Sample rate: {sample_rate}Hz")
+print(f"Total samples: {len(audio_signal)}")
+\end{lstlisting}
+
+\subsubsection{Test Image Processing}
+\begin{lstlisting}[language=Python, caption=Test image processing sederhana]
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image
+
+# Create a simple test image
+width, height = 400, 300
+image = np.zeros((height, width, 3), dtype=np.uint8)
+
+# Add some patterns
+image[:, :width//3, 0] = 255  # Red section
+image[:, width//3:2*width//3, 1] = 255  # Green section
+image[:, 2*width//3:, 2] = 255  # Blue section
+
+# Add a white circle in the center
+center_x, center_y = width//2, height//2
+radius = 50
+Y, X = np.ogrid[:height, :width]
+mask = (X - center_x)**2 + (Y - center_y)**2 <= radius**2
+image[mask] = [255, 255, 255]
+
+# Display and save
+plt.figure(figsize=(8, 6))
+plt.imshow(image)
+plt.title('Test Image with RGB Stripes and White Circle')
+plt.axis('off')
+plt.savefig('test_image.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+print(f"Created test image: {width}x{height} pixels")
+print(f"Image shape: {image.shape}")
+print(f"Image dtype: {image.dtype}")
+\end{lstlisting}
+
+\textbf{Dokumentasikan hasil eksekusi:}
+\begin{itemize}
+    \item Screenshot output dari kedua script di atas
+    \item Gambar yang dihasilkan (sine\_wave\_test.png dan test\_image.png)
+    \item Error message jika ada dan cara mengatasinya
+\end{itemize}
+
+\section{Bagian Laporan}
+
+\subsection{Output Verifikasi Instalasi}
+\textbf{Copy-paste output lengkap dari script \texttt{test\_multimedia.py} di sini:}
+
+\begin{lstlisting}[caption=Output verifikasi instalasi]
+[PASTE OUTPUT DI SINI]
+\end{lstlisting}
+
+\subsection{Screenshot Hasil Test}
+\textbf{Sisipkan screenshot atau gambar hasil dari:}
+\begin{itemize}
+    \item Terminal/command prompt yang menunjukkan environment aktif
+    \item Output dari script test audio (sine wave plot)
+    \item Output dari script test image (RGB stripes dengan circle)
+\end{itemize}
+
+\textit{Gunakan perintah \textbackslash\texttt{includegraphics} untuk menyisipkan gambar}
+
+\subsection{Analisis dan Refleksi}
+\textbf{Jawab pertanyaan berikut:}
+
+\begin{enumerate}
+    \item \textbf{Mengapa penting menggunakan environment terpisah untuk project multimedia?}
+    
+    \textit{[Jawaban Anda di sini]}
+    
+    \item \textbf{Apa perbedaan utama antara conda, venv, dan uv? Mengapa Anda memilih tool yang Anda gunakan?}
+    
+    \textit{[Jawaban Anda di sini]}
+    
+    \item \textbf{Library mana yang paling sulit diinstall dan mengapa?}
+    
+    \textit{[Jawaban Anda di sini]}
+    
+    \item \textbf{Bagaimana cara mengatasi masalah dependency conflict jika terjadi?}
+    
+    \textit{[Jawaban Anda di sini]}
+    
+    \item \textbf{Jelaskan fungsi dari masing-masing library yang berhasil Anda install!}
+    
+    \textit{[Jawaban Anda di sini]}
+\end{enumerate}
+
+\subsection{Troubleshooting}
+\textbf{Dokumentasikan masalah yang Anda hadapi (jika ada) dan cara mengatasinya:}
+
+\begin{itemize}
+    \item \textbf{Masalah 1:} \textit{[Deskripsi masalah]}
+    
+    \textbf{Solusi:} \textit{[Cara mengatasi]}
+    
+    \item \textbf{Masalah 2:} \textit{[Deskripsi masalah]}
+    
+    \textbf{Solusi:} \textit{[Cara mengatasi]}
+\end{itemize}
+
+\section{Export Environment untuk Reproduksi}
+Sebagai langkah terakhir, export environment Anda agar dapat direproduksi:
+
+\subsection{Untuk Conda}
+\begin{lstlisting}[language=bash, caption=Export conda environment]
+conda env export > environment.yml
+\end{lstlisting}
+
+\subsection{Untuk venv/uv}
+\begin{lstlisting}[language=bash, caption=Export pip requirements]
+pip freeze > requirements.txt
+\end{lstlisting}
+
+\textbf{Copy-paste isi file environment.yml atau requirements.txt di sini:}
+
+\begin{lstlisting}[caption=Environment/Requirements file]
+[PASTE ISI FILE DI SINI]
+\end{lstlisting}
+
+\section{Kesimpulan}
+\textbf{Tuliskan kesimpulan Anda mengenai:}
+\begin{itemize}
+    \item Pengalaman setup Python environment untuk multimedia
+    \item Persiapan untuk project multimedia selanjutnya
+    \item Saran untuk mahasiswa lain yang akan melakukan setup serupa
+\end{itemize}
+
+\textit{[Kesimpulan Anda di sini]}
+
+\section{Referensi}
+Sertakan referensi yang Anda gunakan selama proses setup dan troubleshooting.
+
+\newpage
+\bibliographystyle{IEEEtran}
+\bibliography{Referensi}
+\end{document}

@@ -7,4 +7,3 @@ node_modules/
 multimedia-uv/
 /human
 body_landmarks.ipynb
-.gitignore

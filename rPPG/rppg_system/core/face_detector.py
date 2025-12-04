@@ -87,12 +87,21 @@ class FaceDetector:
             width = min(width, w - x)
             height = min(height, h - y)
             
-            # Extract forehead region (upper 40% of face)
-            forehead_height = int(height * 0.4)
-            roi_y = max(0, y)
-            roi_y_end = min(h, y + forehead_height)
+            # MediaPipe bbox doesn't cover full forehead properly
+            # Need to extend upward by fixed pixels to get true forehead
+            forehead_offset_up = 40  # Extend 40px upward from face bbox
+            forehead_height = 60      # Height of forehead ROI
+            
+            # Calculate forehead ROI (above the face bbox)
+            roi_y = max(0, y - forehead_offset_up)
+            roi_y_end = max(0, y - forehead_offset_up + forehead_height)
             roi_x = max(0, x)
             roi_x_end = min(w, x + width)
+            
+            # Ensure ROI is within frame
+            if roi_y >= h or roi_y_end > h:
+                roi_y = max(0, y)
+                roi_y_end = min(h, y + forehead_height)
             
             # Extract ROI
             roi = frame_rgb[roi_y:roi_y_end, roi_x:roi_x_end]
@@ -101,10 +110,12 @@ class FaceDetector:
             if roi.size == 0 or roi.shape[0] < 10 or roi.shape[1] < 10:
                 return None
             
-            # Cache bbox for visualization
-            self._last_bbox = (x, y, width, height)
+            # Cache bbox for visualization (include ROI offset info)
+            # Format: (x, y, width, height, forehead_offset_up, forehead_height)
+            self._last_bbox = (x, y, width, height, forehead_offset_up, forehead_height)
             
-            return roi, (x, y, width, height)
+            # Return ROI and full face bbox + ROI info
+            return roi, (x, y, width, height, forehead_offset_up, forehead_height)
             
         except Exception as e:
             print(f"Face detection error: {e}")

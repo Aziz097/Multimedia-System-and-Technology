@@ -1,7 +1,7 @@
 # Laporan Tugas: Implementasi Sistem rPPG Berbasis Algoritma CHROM
 
 **Data Mahasiswa:**
-*   **Nama:** [Nama Mahasiswa]
+*   **Nama:** Aziz Kurniawan
 *   **NIM:** 122140097
 *   **Program Studi:** Teknik Informatika
 *   **Repository:** [GitHub - Multimedia-System-and-Technology](https://github.com/Aziz097/Multimedia-System-and-Technology)

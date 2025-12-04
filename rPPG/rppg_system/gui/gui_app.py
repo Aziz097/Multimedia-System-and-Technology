@@ -105,12 +105,27 @@ class VideoThread(QThread):
                 
                 # Draw face detection on frame
                 if result['face_detected'] and result['bbox']:
-                    x, y, w, h = result['bbox']
-                    # Draw face rectangle
+                    bbox_info = result['bbox']
+                    
+                    # Handle both old format (4 values) and new format (6 values)
+                    if len(bbox_info) == 6:
+                        x, y, w, h, offset_up, forehead_h = bbox_info
+                    else:
+                        x, y, w, h = bbox_info
+                        offset_up = 80  # Default 80px up
+                        forehead_h = 60  # Default 60px height
+                    
+                    # Draw full face rectangle (green)
                     cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                    # Draw ROI (forehead)
-                    forehead_h = int(h * 0.4)
-                    cv2.rectangle(frame, (x, y), (x + w, y + forehead_h), (255, 0, 0), 2)
+                    
+                    # Draw forehead ROI rectangle (blue) - ABOVE face bbox
+                    roi_y_start = max(0, y - offset_up)
+                    roi_y_end = max(0, y - offset_up + forehead_h)
+                    cv2.rectangle(frame, (x, roi_y_start), (x + w, roi_y_end), (255, 0, 0), 2)
+                    
+                    # Add label
+                    cv2.putText(frame, "Forehead ROI", (x, roi_y_start - 10), 
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
                 
                 # Emit frame and results
                 self.frame_ready.emit(frame, result)
